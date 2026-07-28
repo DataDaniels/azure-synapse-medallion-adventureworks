@@ -12,13 +12,13 @@ O projeto realiza a ingestão paralela de dados a partir de um banco relacional 
 
 O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nuvem:
 
-| Etapa | Componente | Descrição da Operação | Formato / Saída |
+| Etapa | Componente Principal | Descrição da Operação | Formato / Saída |
 | :--- | :--- | :--- | :--- |
-| **Origem** | Azure SQL Database | Fonte de dados relacional (Schema `SalesLT`). | Tabelas OLTP |
-| **Ingestão** | Synapse Pipeline | Execução de atividade `Delete` para idempotência e `ForEach` para cópia paralela. | Arquivos CSV (`raw/`) |
-| **Silver** | PySpark (Spark Pool) | Limpeza de schemas, tratamento de colunas e simulação de datas históricas. | Tabelas Delta (`enriched/`) |
-| **Gold** | PySpark / Spark SQL | Modelagem Star Schema com *Surrogate Keys* e Dimensão Calendário. | Tabelas Delta (`curated/`) |
-| **Consumo** | Power BI / Analytics | Camada final pronta para modelagem analítica e dashboards. | Dashboards & Reports |
+| **🛢️ Origem** | **Azure SQL Database** | Fonte de dados relacional (Schema `SalesLT`). | Tabelas OLTP |
+| **🔄 Ingestão** | **Synapse Pipeline** | Execução de atividade `Delete` para idempotência e `ForEach` para cópia paralela. | Arquivos CSV (`raw/`) |
+| **🥈 Silver** | **PySpark** *(Spark Pool)* | Limpeza de schemas, tratamento de colunas e simulação de datas históricas. | Tabelas Delta (`enriched/`) |
+| **🥇 Gold** | **PySpark / Spark SQL** | Modelagem Star Schema com *Surrogate Keys* e Dimensão Calendário. | Tabelas Delta (`curated/`) |
+| **📊 Consumo** | **Power BI / Analytics** | Camada final pronta para modelagem analítica e dashboards. | Dashboards & Reports |
 
 ---
 
