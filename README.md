@@ -2,7 +2,7 @@
 
 Este repositório contém a implementação de uma pipeline end-to-end de Engenharia de Dados desenvolvida no **Azure Synapse Analytics**, aplicando a **Medallion Architecture (Bronze, Silver e Gold)** com **Delta Lake** no **Azure Data Lake Storage Gen2 (ADLS Gen2)**.
 
-![Pipeline Canvas](architecture/pipeline_canvas.png)
+![Pipeline Canvas](architecture/pipeline_flow.png)
 
 O projeto realiza a ingestão paralela de dados a partir de um banco relacional **Azure SQL Database**, trata e padroniza as informações na camada Silver e constrói um modelo dimensional **Star Schema** na camada Gold via **PySpark**, deixando a estrutura pronta para análises e relatórios no **Power BI**.
 
@@ -64,7 +64,7 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 O pipeline foi homologado com 100% de taxa de sucesso (`Succeeded`) em todas as 14 atividades no Azure Synapse Analytics:
 
 ### Fluxo e Execução das Atividades
-![Pipeline Flow](architecture/pipeline_flow.png)
+![Pipeline Flow](architecture/pipeline_canvas.png)
 
 ### Monitoramento e Performance Detalhada
 ![Pipeline Execution](architecture/pipeline_execution.png)
