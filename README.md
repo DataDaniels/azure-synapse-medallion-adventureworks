@@ -91,6 +91,7 @@ azure-synapse-medallion-adventureworks/
 │
 └── pipelines/
     └── End_to_End_Data_Pipeline.json  # Definição do Pipeline exportada do Synapse
+```
 
 ---
 
