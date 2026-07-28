@@ -76,6 +76,7 @@ O pipeline foi homologado com 100% de taxa de sucesso (`Succeeded`) em todas as 
 
 ## 📁 Estrutura do Repositório
 
+```text
 azure-synapse-medallion-adventureworks/
 │
 ├── README.md                          # Documentação principal
