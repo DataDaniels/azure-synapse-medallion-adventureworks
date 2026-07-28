@@ -8,6 +8,24 @@ O projeto realiza a ingestão paralela de dados a partir de um banco relacional 
 
 ---
 
+## 🎯 Contexto de Negócio & Objetivos Analíticos
+
+Mais do que uma solução técnica robusta em nuvem, este projeto foi desenhado para resolver um desafio clássico de negócio: **transformar dados operacionais (OLTP) de vendas e clientes em inteligência estratégica pronta para tomada de decisão.**
+
+A base processada pertence ao ecossistema **AdventureWorks** (fabricante e distribuidora global de bicicletas, peças e acessórios). A estrutura dimensional criada na camada Gold (`curated`) permite responder diretamente às seguintes perguntas estratégicas:
+
+- **Desempenho Comercial & Lucratividade:**
+  - Qual é a Receita Total ($), Ticket Médio e Volume de Vendas por período?
+  - Quais são os produtos e categorias mais rentáveis e de maior giro?
+- **Inteligência de Clientes:**
+  - Quem são os clientes de alto valor (*High-Value Customers*) e sua distribuição geográfica?
+  - Como se comporta a taxa de recompra e o volume de pedidos por região?
+- **Análise Temporal & Sazonalidade:**
+  - Qual é a evolução histórica das vendas ao longo dos meses e anos (suportada pela `dimDate`)?
+  - Existem picos sazonais de demanda para categorias específicas de produtos?
+
+---
+
 ## 🏗️ Arquitetura da Solução
 
 O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nuvem:
