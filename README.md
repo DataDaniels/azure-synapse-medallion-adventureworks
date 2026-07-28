@@ -8,39 +8,26 @@ O projeto realiza a ingestão paralela de dados a partir de um banco relacional 
 
 ## 🏗️ Arquitetura da Solução
 
-[ Azure SQL Database ] (sqldb-adventureworks)
-         │
-         ▼
- ( Activity: Delete Old Data ) ──> ( ForEach_tqx: Ingestão Paralela )
-                                              │
-                                              ▼
-                                    [ ADLS Gen2: raw/ ] (CSV)
-                                              │
-                                              ▼
-                                 ( Notebook: Raw to Enriched )
-                                              │
-                                              ▼
-                                    [ ADLS Gen2: enriched/ ] (Delta Lake)
-                                              │
-                                              ▼
-                                ( Notebook: Enriched to Curated )
-                                              │
-                                              ▼
-                                    [ ADLS Gen2: curated/ ] (Delta Lake - Star Schema)
-                                              │
-                                              ▼
-                                     [ Power BI / Analytics ]
+O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nuvem:
+
+| Etapa | Componente | Descrição da Operação | Formato / Saída |
+| :--- | :--- | :--- | :--- |
+| **Origem** | Azure SQL Database | Fonte de dados relacional (Schema `SalesLT`). | Tabelas OLTP |
+| **Ingestão** | Synapse Pipeline | Execução de atividade `Delete` para idempotência e `ForEach` para cópia paralela. | Arquivos CSV (`raw/`) |
+| **Silver** | PySpark (Spark Pool) | Limpeza de schemas, tratamento de colunas e simulação de datas históricas. | Tabelas Delta (`enriched/`) |
+| **Gold** | PySpark / Spark SQL | Modelagem Star Schema com Surrogate Keys e Dimensão Calendário. | Tabelas Delta (`curated/`) |
+| **Consumo** | Power BI / Analytics | Camada final pronta para modelagem analítica e dashboards. | Dashboards & Reports |
 
 ---
 
-## ⚙️ Recursos Provisionados no Azure
+## ⚙️ Tecnologias & Serviços Azure Utilizados
 
-- **Resource Group:** posgraduacao-rg
-- **Synapse Workspace:** posgraduacaosynapseworkspacedaniel2026
-- **Apache Spark Pool:** SparkPool01
-- **Data Lake Storage (ADLS Gen2):** adlsposgraduacaodaniel
-- **SQL Server:** sqlserver-pos-daniel
-- **SQL Database:** sqldb-adventureworks
+- **Azure Synapse Analytics:** Ambiente integrado para orquestração de pipelines e processamento Big Data.
+- **Apache Spark Pool:** Cluster gerenciado para execução dos jobs de transformação em PySpark.
+- **Azure Data Lake Storage Gen2 (ADLS Gen2):** Armazenamento em nuvem otimizado para analytics com namespace hierárquico.
+- **Delta Lake:** Formato de armazenamento open-source que traz transações ACID e desempenho para o Data Lake.
+- **Azure SQL Database:** Banco de dados relacional de origem (Base de testes AdventureWorks LT).
+- **Azure RBAC & Managed Identity:** Controle de acesso unificado e seguro entre serviços sem exposição de chaves.
 
 ---
 
