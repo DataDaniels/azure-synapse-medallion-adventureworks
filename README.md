@@ -61,10 +61,13 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 
 O pipeline foi homologado com 100% de taxa de sucesso (`Succeeded`) em todas as 14 atividades no Azure Synapse Analytics:
 
-### 1. Diagrama Visual do Pipeline
+### 1. Design e Validação do Pipeline no Synapse Studio
+![Pipeline Canvas](architecture/pipeline_canvas.png)
+
+### 2. Fluxo Visual das Atividades
 ![Pipeline Flow](architecture/pipeline_flow.png)
 
-### 2. Status e Performance de Execução das Atividades
+### 3. Histórico e Monitoramento de Execução
 ![Pipeline Execution](architecture/pipeline_execution.png)
 
 - **Limpeza (`Delete Old Data`):** Executada com sucesso para garantir a idempotência do pipeline.
@@ -82,8 +85,9 @@ azure-synapse-medallion-adventureworks/
 ├── README.md                          # Documentação principal
 │
 ├── architecture/
-│   ├── pipeline_flow.png              # Fluxo das atividades no Synapse Studio
-│   └── pipeline_execution.png         # Monitoramento da execução com status Succeeded
+│   ├── pipeline_canvas.png            # Interface do Synapse com as opções Validate, Debug e Add Trigger
+│   ├── pipeline_flow.png              # Fluxo visual das atividades concluídas
+│   └── pipeline_execution.png         # Monitoramento detalhado das execuções (Status Succeeded)
 │
 ├── notebooks/
 │   ├── 01_raw_to_enriched.ipynb       # Código PySpark (CSV -> Delta na Silver)
