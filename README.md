@@ -2,6 +2,8 @@
 
 Este repositório contém a implementação de uma pipeline end-to-end de Engenharia de Dados desenvolvida no **Azure Synapse Analytics**, aplicando a **Medallion Architecture (Bronze, Silver e Gold)** com **Delta Lake** no **Azure Data Lake Storage Gen2 (ADLS Gen2)**.
 
+![Pipeline Canvas](architecture/pipeline_canvas.png)
+
 O projeto realiza a ingestão paralela de dados a partir de um banco relacional **Azure SQL Database**, trata e padroniza as informações na camada Silver e constrói um modelo dimensional **Star Schema** na camada Gold via **PySpark**, deixando a estrutura pronta para análises e relatórios no **Power BI**.
 
 ---
@@ -15,7 +17,7 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 | **Origem** | Azure SQL Database | Fonte de dados relacional (Schema `SalesLT`). | Tabelas OLTP |
 | **Ingestão** | Synapse Pipeline | Execução de atividade `Delete` para idempotência e `ForEach` para cópia paralela. | Arquivos CSV (`raw/`) |
 | **Silver** | PySpark (Spark Pool) | Limpeza de schemas, tratamento de colunas e simulação de datas históricas. | Tabelas Delta (`enriched/`) |
-| **Gold** | PySpark / Spark SQL | Modelagem Star Schema com Surrogate Keys e Dimensão Calendário. | Tabelas Delta (`curated/`) |
+| **Gold** | PySpark / Spark SQL | Modelagem Star Schema com *Surrogate Keys* e Dimensão Calendário. | Tabelas Delta (`curated/`) |
 | **Consumo** | Power BI / Analytics | Camada final pronta para modelagem analítica e dashboards. | Dashboards & Reports |
 
 ---
@@ -25,7 +27,7 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 - **Azure Synapse Analytics:** Ambiente integrado para orquestração de pipelines e processamento Big Data.
 - **Apache Spark Pool:** Cluster gerenciado para execução dos jobs de transformação em PySpark.
 - **Azure Data Lake Storage Gen2 (ADLS Gen2):** Armazenamento em nuvem otimizado para analytics com namespace hierárquico.
-- **Delta Lake:** Formato de armazenamento open-source que traz transações ACID e desempenho para o Data Lake.
+- **Delta Lake:** Formato de armazenamento open-source que traz transações ACID e alto desempenho para o Data Lake.
 - **Azure SQL Database:** Banco de dados relacional de origem (Base de testes AdventureWorks LT).
 - **Azure RBAC & Managed Identity:** Controle de acesso unificado e seguro entre serviços sem exposição de chaves.
 
@@ -39,14 +41,14 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 
 ### 2. Camada Enriched / Silver (`enriched/`)
 - **Formato:** Delta Lake
-- Processamento via notebook PySpark `Raw to Enriched`:
+- Processamento via notebook PySpark `01_raw_to_enriched`:
   - Limpeza de colunas desnecessárias e renomeação de atributos.
   - Randomização de datas na coluna `OrderDate` para simular massa histórica real.
   - Salvamento como tabelas **Delta Lake**: `salesCustomer`, `salesCustomerAddress`, `salesOrderHeader`, `salesOrderDetail`, `salesProduct`, `salesProductCategory`.
 
 ### 3. Camada Curated / Gold (`curated/`)
 - **Formato:** Delta Lake (Modelo Dimensional Star Schema)
-- Processamento via notebook PySpark `Enriched to Curated`:
+- Processamento via notebook PySpark `02_enriched_to_curated`:
   - Criação de *Surrogate Keys* (`monotonically_increasing_id()`).
   - Geração dinâmica da Dimensão Tempo (`dimDate`).
   - Criação das tabelas no formato **Delta Lake**:
@@ -61,13 +63,10 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 
 O pipeline foi homologado com 100% de taxa de sucesso (`Succeeded`) em todas as 14 atividades no Azure Synapse Analytics:
 
-### 1. Design e Validação do Pipeline no Synapse Studio
-![Pipeline Canvas](architecture/pipeline_canvas.png)
-
-### 2. Fluxo Visual das Atividades
+### Fluxo e Execução das Atividades
 ![Pipeline Flow](architecture/pipeline_flow.png)
 
-### 3. Histórico e Monitoramento de Execução
+### Monitoramento e Performance Detalhada
 ![Pipeline Execution](architecture/pipeline_execution.png)
 
 - **Limpeza (`Delete Old Data`):** Executada com sucesso para garantir a idempotência do pipeline.
@@ -85,7 +84,7 @@ azure-synapse-medallion-adventureworks/
 ├── README.md                          # Documentação principal
 │
 ├── architecture/
-│   ├── pipeline_canvas.png            # Interface do Synapse com as opções Validate, Debug e Add Trigger
+│   ├── pipeline_canvas.png            # Interface do Synapse com o pipeline em destaque
 │   ├── pipeline_flow.png              # Fluxo visual das atividades concluídas
 │   └── pipeline_execution.png         # Monitoramento detalhado das execuções (Status Succeeded)
 │
@@ -96,18 +95,6 @@ azure-synapse-medallion-adventureworks/
 └── pipelines/
     └── End_to_End_Data_Pipeline.json  # Definição do Pipeline exportada do Synapse
 ```
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Microsoft Azure:** Synapse Analytics, ADLS Gen2, Azure SQL Database
-- **Orquestração:** Synapse Pipelines
-- **Engenharia de Dados:** Apache Spark, PySpark, Spark SQL
-- **Formatos de Arquivos:** Delta Lake, CSV
-- **Segurança:** Azure RBAC, Managed Identity (`Storage Blob Data Contributor`)
-
----
 
 ## 👨‍💻 Autor
 **Daniel Moreira** | Data Engineer
