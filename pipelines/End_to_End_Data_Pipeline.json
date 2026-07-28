@@ -1,0 +1,286 @@
+{
+    "name": "End to End Data Pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "ForEach_tqx",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Delete Old Data",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@pipeline().parameters.cw_items",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Copy_tqx",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [
+                                {
+                                    "name": "Source",
+                                    "value": "SalesLT.@{item().source.table}"
+                                },
+                                {
+                                    "name": "Destination",
+                                    "value": "raw//@{item().destination.fileName}"
+                                }
+                            ],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "partitionOption": "None"
+                                },
+                                "sink": {
+                                    "type": "DelimitedTextSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextWriteSettings",
+                                        "quoteAllText": true,
+                                        "fileExtension": ".csv"
+                                    }
+                                },
+                                "enableStaging": false,
+                                "validateDataConsistency": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "SourceDataset_tqx",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "cw_table": "@item().source.table"
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "DestinationDataset_tqx",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "cw_fileName": "@item().destination.fileName"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Raw to Enriched",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "ForEach_tqx",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "Raw to Enriched",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true,
+                    "sparkPool": {
+                        "referenceName": "SparkPool01",
+                        "type": "BigDataPoolReference"
+                    },
+                    "executorSize": "Small",
+                    "driverSize": "Small",
+                    "authentication": {
+                        "type": "MSI"
+                    }
+                }
+            },
+            {
+                "name": "Enriched to Curated",
+                "type": "SynapseNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw to Enriched",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebook": {
+                        "referenceName": "Enriched to Curated",
+                        "type": "NotebookReference"
+                    },
+                    "snapshot": true,
+                    "sparkPool": {
+                        "referenceName": "SparkPool01",
+                        "type": "BigDataPoolReference"
+                    },
+                    "executorSize": "Small",
+                    "driverSize": "Small",
+                    "authentication": {
+                        "type": "MSI"
+                    }
+                }
+            },
+            {
+                "name": "Delete Old Data",
+                "type": "Delete",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataset": {
+                        "referenceName": "DestinationDataset_tqx",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "cw_fileName": "Teste"
+                        }
+                    },
+                    "enableLogging": false,
+                    "storeSettings": {
+                        "type": "AzureBlobFSReadSettings",
+                        "recursive": true,
+                        "wildcardFileName": "*.csv",
+                        "enablePartitionDiscovery": false
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "cw_items": {
+                "type": "Array",
+                "defaultValue": [
+                    {
+                        "source": {
+                            "table": "Address"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.Address.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "Customer"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.Customer.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "CustomerAddress"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.CustomerAddress.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "Product"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.Product.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "ProductCategory"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.ProductCategory.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "ProductDescription"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.ProductDescription.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "ProductModel"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.ProductModel.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "ProductModelProductDescription"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.ProductModelProductDescription.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "SalesOrderDetail"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.SalesOrderDetail.csv"
+                        }
+                    },
+                    {
+                        "source": {
+                            "table": "SalesOrderHeader"
+                        },
+                        "destination": {
+                            "fileName": "SalesLT.SalesOrderHeader.csv"
+                        }
+                    }
+                ]
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2026-07-24T03:28:28Z"
+    },
+    "type": "Microsoft.Synapse/workspaces/pipelines"
+}
