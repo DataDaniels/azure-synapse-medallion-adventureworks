@@ -1,4 +1,4 @@
-# 🏗️ Arquitetura, BI & Insights de Negócio
+8# 🏗️ Arquitetura, BI & Insights de Negócio
 
 🌐 **Idioma:** [🇺🇸 English](ARCHITECTURE.md) | [🇧🇷 Português](ARCHITECTURE.pt-br.md)
 
@@ -143,7 +143,7 @@ O painel foi desenvolvido com um layout corporativo escuro (*Dark Tech*), organi
 
 Confira a navegação em tempo real e a aplicação dos filtros dinâmicos no relatório:
 
-**demo_adventureworks_dashboard.mp4** (veja a pasta `dashboard/`)
+https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 
 ### 🎯 Destaques e KPIs do Painel
 
