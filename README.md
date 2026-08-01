@@ -94,6 +94,49 @@ O pipeline foi homologado com 100% de taxa de sucesso (`Succeeded`) em todas as 
 
 ---
 
+## 📊 Camada de Apresentação & Business Intelligence (Power BI)
+
+A camada Gold (`curated`) do Data Lake foi disponibilizada via **Synapse Serverless SQL Pool** e conectada ao **Power BI Desktop** para a construção de um painel executivo e interativo de vendas.
+
+---
+
+### 📐 Modelagem Dimensional (Star Schema)
+
+No Power BI Desktop, as views do Synapse foram conectadas e organizadas em uma estrutura **Star Schema (1 para Muitos)**, garantindo integridade relacional, alta performance analítica e cálculo eficiente de medidas DAX:
+
+![Data Modeling](dashboard/data_modeling.png)
+
+- **Tabela Fato (`factSales`):** Centralizada com métricas financeiras e chaves substitutas (*Surrogate Keys*).
+- **Tabelas de Dimensão (`dimCustomer`, `dimProduct`, `dimDate`):** Entidades contextuais ligadas à fato pelas chaves relacionais (`customerKey`, `productKey`, `dateKey`).
+
+---
+
+### 🎨 Dashboard Executivo
+
+O painel foi desenvolvido com um layout corporativo escuro (*Dark Tech*), organizando os visuais em blocos para rápida leitura dos indicadores do negócio:
+
+![Dashboard Preview](dashboard/dashboard_preview.png)
+
+---
+
+### 🎥 Demonstração Interativa
+
+Confira a navegação em tempo real e a aplicação dos filtros dinâmicos no relatório:
+
+<video src="dashboard/demo_adventureworks_dashboard.mp4" controls width="100%"></video>
+
+---
+
+### 🎯 Destaques e KPIs do Painel
+
+- **Métricas de Alto Nível (KPIs):** Acompanhamento do Faturamento Total ($708,7K), Ticket Médio ($22,1K), Total de Pedidos (32) e Volume de Unidades (2,1K).
+- **Análise de Portfólio:** Ranking de vendas por categoria de produto (com destaque para *Touring Bikes* e *Road Bikes*).
+- **Evolução Temporal:** Análise histórica da curva de faturamento mês a mês.
+- **Performance por Cliente:** Tabela analítica agrupando vendas e quantidade de pedidos por empresa parceira.
+- **Segmentação Dinâmica:** Slicers interativos por ano, mês, data, cliente, produto e categoria.
+
+---
+
 ## 📁 Estrutura do Repositório
 
 ```text
