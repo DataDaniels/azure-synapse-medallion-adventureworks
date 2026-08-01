@@ -33,6 +33,12 @@ This README gives an overview of the project. To go deeper:
 
 📄 Details of each layer (Bronze/Silver/Gold) and the technologies used are in [docs/ARCHITECTURE.md](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/docs/ARCHITECTURE.md).
 
+
+## 📊 Data Source
+
+This project uses the **AdventureWorksLT** sample database, provided by Microsoft under the MIT License: [microsoft/sql-server-samples](https://github.com/microsoft/sql-server-samples).
+
+
 [![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_containers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_containers.png)
 
 ---
