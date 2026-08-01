@@ -33,6 +33,14 @@ Este README traz uma visão geral do projeto. Para se aprofundar:
 
 📄 Detalhes de cada camada (Bronze/Silver/Gold) e das tecnologias em [docs/ARCHITECTURE.pt-br.md](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/docs/ARCHITECTURE.pt-br.md).
 
+---
+
+## 📊 Fonte dos Dados
+
+Este projeto utiliza o banco de dados de exemplo **AdventureWorksLT**, disponibilizado pela Microsoft sob a licença MIT: [microsoft/sql-server-samples](https://github.com/microsoft/sql-server-samples).
+
+---
+
 [![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_containers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_containers.png)
 
 ---
