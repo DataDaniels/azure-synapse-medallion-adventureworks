@@ -143,7 +143,7 @@ The dashboard was built with a dark corporate layout (*Dark Tech*), organizing v
 
 Check out the real-time navigation and dynamic filter interaction in the report:
 
-**demo_adventureworks_dashboard.mp4** (see `dashboard/` folder)
+https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 
 ### 🎯 Dashboard Highlights & KPIs
 
