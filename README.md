@@ -110,6 +110,18 @@ No Power BI Desktop, as views do Synapse foram conectadas e organizadas em uma e
 
 ---
 
+### 🛠️ Camada de Abstração SQL (Synapse Serverless SQL Pool)
+
+Para conectar o **Power BI Desktop** aos arquivos no formato **Delta Lake** persistidos na camada Gold do Data Lake (ADLS Gen2), disponibilizamos o script `sql/01_create_gold_views.sql`[cite: 1]. 
+
+Este script é fundamental na arquitetura pelos seguintes motivos técnicos:
+
+- **Ponte entre Arquivos e T-SQL:** O Power BI consome dados de forma otimizada via consultas SQL relacionais. O uso do comando `OPENROWSET` com `FORMAT = 'DELTA'` permite que o motor Serverless leia os arquivos parquet/delta diretamente no repositório de arquivos[cite: 1] e os exponha como tabelas nativas de banco de dados.
+- **Camada de Abstração (Decoupling):** Ao encapsular as URLs do Data Lake em *Views* relacionais (`dimCustomer`, `dimProduct`, `dimDate`, `factSales`)[cite: 1], isolamos o relatório visual da estrutura física de diretórios. Qualquer mudança futura de caminhos ou pastas exige ajuste apenas na View, protegendo os relatórios do Power BI de quebras.
+- **Eficiência Operacional sem Servidores Dedicados:** O Synapse Serverless realiza o processamento sob demanda (*pay-per-query*), eliminando a necessidade de provisionar e pagar por um banco de dados relacional dedicado ligado 24/7.
+
+---
+
 ### 🎨 Dashboard Executivo
 
 O painel foi desenvolvido com um layout corporativo escuro (*Dark Tech*), organizando os visuais em blocos para rápida leitura dos indicadores do negócio:
