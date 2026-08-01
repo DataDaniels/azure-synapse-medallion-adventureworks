@@ -50,9 +50,15 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 
 ## 🗄️ Estrutura do Data Lake & Arquitetura Medalhão
 
+[![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_containers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_containers.png)
+
+O Storage Account (ADLS Gen2) foi organizado em três containers principais, seguindo o fluxo Raw → Enriched → Curated:
+
 ### 1. Camada Raw / Bronze (`raw/`)
 - **Formato:** CSV
 - Contém a ingestão bruta das 10 tabelas do schema `SalesLT` (`SalesLT.Customer.csv`, `SalesLT.Product.csv`, `SalesLT.SalesOrderHeader.csv`, etc.).
+
+[![Camada Raw](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_raw_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_raw_layer.png)
 
 ### 2. Camada Enriched / Silver (`enriched/`)
 - **Formato:** Delta Lake
@@ -60,6 +66,8 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
   - Limpeza de colunas desnecessárias e renomeação de atributos.
   - Randomização de datas na coluna `OrderDate` para simular massa histórica real.
   - Salvamento como tabelas **Delta Lake**: `salesCustomer`, `salesCustomerAddress`, `salesOrderHeader`, `salesOrderDetail`, `salesProduct`, `salesProductCategory`.
+
+[![Camada Enriched](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_enriched_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_enriched_layer.png)
 
 ### 3. Camada Curated / Gold (`curated/`)
 - **Formato:** Delta Lake (Modelo Dimensional Star Schema)
@@ -71,6 +79,8 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
     - **`dimProduct`**: Dimensão Produto consolidada com categoria e subcategoria.
     - **`dimDate`**: Dimensão Calendário cobrindo o período de análises.
     - **`factSales`**: Tabela Fato de Vendas combinando cabeçalho e itens de pedidos com as chaves das dimensões.
+
+[![Camada Curated](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_curated_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_curated_layer.png)
 
 > 🔍 Quer ver o código PySpark comentado por trás de cada uma dessas etapas? Veja o [Code Walkthrough](CODE_WALKTHROUGH.md).
 
