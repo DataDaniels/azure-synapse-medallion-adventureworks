@@ -80,7 +80,7 @@ O Storage Account (ADLS Gen2) foi organizado em três containers principais, seg
     - **`dimDate`**: Dimensão Calendário cobrindo o período de análises.
     - **`factSales`**: Tabela Fato de Vendas combinando cabeçalho e itens de pedidos com as chaves das dimensões.
 
-[![Camada Curated](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_curated_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_curated_layer.png)
+[![Camada Curated](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/curated_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/curated_layer.png)
 
 > 🔍 Quer ver o código PySpark comentado por trás de cada uma dessas etapas? Veja o [Code Walkthrough](CODE_WALKTHROUGH.md).
 
