@@ -138,25 +138,34 @@ https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 
 ---
 
-## 📁 Estrutura do Repositório
+### 📁 Estrutura do Repositório
 
 ```text
 azure-synapse-medallion-adventureworks/
 │
-├── README.md                          # Documentação principal
+├── README.md                           # Documentação principal do projeto
 │
 ├── architecture/
-│   ├── pipeline_canvas.png            # Interface do Synapse com o pipeline em destaque
-│   ├── pipeline_flow.png              # Fluxo visual das atividades concluídas
-│   └── pipeline_execution.png         # Monitoramento detalhado das execuções (Status Succeeded)
+│   ├── pipeline_canvas.png             # Interface do Synapse com o pipeline em destaque
+│   ├── pipeline_execution.png          # Monitoramento detalhado das execuções (Status Succeeded)
+│   └── pipeline_flow.png               # Fluxo visual das atividades concluídas
+│
+├── dashboard/
+│   ├── ADVENTUREWORKS_DASHBOARD.pbix   # Arquivo do relatório no Power BI Desktop
+│   ├── background.png                  # Plano de fundo personalizado estilo Dark Tech
+│   ├── dashboard_preview.png           # Captura de tela do painel executivo final
+│   ├── data_modeling.png               # Diagrama do modelo relacional Star Schema
+│   └── demo_adventureworks_dashboard.mp4 # Vídeo de demonstração interativa do dashboard
 │
 ├── notebooks/
-│   ├── 01_raw_to_enriched.ipynb       # Código PySpark (CSV -> Delta na Silver)
-│   └── 02_enriched_to_curated.ipynb   # Código PySpark (Modelagem Star Schema na Gold)
+│   ├── 01_raw_to_enriched.ipynb        # Código PySpark (Bronze -> Silver em formato Delta)
+│   └── 02_enriched_to_curated.ipynb    # Código PySpark (Silver -> Gold / Star Schema)
 │
-└── pipelines/
-    └── End_to_End_Data_Pipeline.json  # Definição do Pipeline exportada do Synapse
-```
+├── pipelines/
+│   └── End_to_End_Data_Pipeline.json   # Definição e orquestração do pipeline no Synapse
+│
+└── sql/
+    └── 01_create_gold_views.sql        # Script T-SQL para criação das views no Synapse Serverless
 
 ## 👨‍💻 Autor
 **Daniel Moreira** | Data Engineer
