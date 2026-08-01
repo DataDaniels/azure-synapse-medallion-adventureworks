@@ -14,7 +14,7 @@ Este documento traz os trechos mais estratégicos dos dois notebooks PySpark do 
 %%pyspark
 
 # Lista todos os arquivos e diretórios dentro do container 'raw'
-file_list = mssparkutils.fs.ls("abfss://raw@<storage_account>.dfs.core.windows.net/")
+file_list = mssparkutils.fs.ls("abfss://raw@storage_account.dfs.core.windows.net/")
 
 # Itera sobre cada arquivo para criar as Temp Views automaticamente,
 # eliminando a necessidade de hardcode de nomes de tabelas no notebook.
@@ -63,7 +63,7 @@ df_salesorderheader = df_salesorderheader.drop("OrderDate").withColumn(
 ### 3. Persistência em Delta Lake (padrão idempotente)
 
 ```python
-path = "abfss://enriched@<storage_account>.dfs.core.windows.net/"
+path = "abfss://enriched@storage_account.dfs.core.windows.net/"
 tableName = "salesOrderHeader"
 
 # overwrite + overwriteSchema garante idempotência: cada execução do pipeline
