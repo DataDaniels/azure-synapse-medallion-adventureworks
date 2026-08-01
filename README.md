@@ -55,7 +55,7 @@ Extracted from the Power BI executive dashboard:
 
 ### 🎥 Interactive Demo
 
-**demo_adventureworks_dashboard.mp4** (see video in the `dashboard/` folder)
+https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 
 ---
 
