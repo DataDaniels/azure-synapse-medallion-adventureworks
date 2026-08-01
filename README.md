@@ -31,6 +31,8 @@ Este README traz uma visão geral do projeto. Para se aprofundar:
 
 📄 Detalhes de cada camada (Bronze/Silver/Gold) e das tecnologias em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
+[![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/layers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/layers.png)
+
 ---
 
 ## 📊 Principais Resultados
