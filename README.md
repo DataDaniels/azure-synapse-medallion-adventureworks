@@ -135,7 +135,45 @@ https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 - **Performance por Cliente:** Tabela analítica agrupando vendas e quantidade de pedidos por empresa parceira.
 - **Segmentação Dinâmica:** Slicers interativos por ano, mês, data, cliente, produto e categoria.
 
+
 ---
+
+## 🎯 Insights de Negócio & Respostas Analíticas
+
+A partir do processamento dos dados na arquitetura Lakehouse e da consolidação no Power BI, foram extraídas as seguintes respostas estratégicas para a gestão comercial:
+
+### 📈 1. Desempenho Comercial & Lucratividade
+- **Métricas Globais:**
+  - **Faturamento Total:** **$708,7K** ($708.690,20)
+  - **Ticket Médio:** **$22,1K** ($22.146,57 por pedido)
+  - **Volume e Pedidos:** **2.087 unidades vendidas** distribuídas em **32 pedidos**.
+- **Categorias de Maior Receita:**
+  1. 🥇 **Touring Bikes:** $220,7K
+  2. 🥈 **Road Bikes:** $183,1K
+  3. 🥉 **Mountain Bikes:** $170,8K
+- **Mix de Produtos:** A categoria de bicicletas completas traz o maior faturamento bruto (alto valor agregado), enquanto componentes (*Mountain/Road Frames*) e vestuário (*Jerseys*) compõem a linha de giro secundário.
+
+---
+
+### 👥 2. Inteligência de Clientes (Perfil B2B)
+- **Comportamento de Compra:** O faturamento é altamente focado em distribuidores e revendedores B2B, apresentando um volume menor de transações (32 pedidos), porém com alto valor por lote.
+- **Top Clientes em Faturamento (*High-Value Customers*):**
+  1. **Action Bicycle Specialists:** $89.869,30 (267 unidades em 1 pedido)
+  2. **Bulk Discount Store:** $74.160,20 (167 unidades em 1 pedido)
+  3. **Closest Bicycle Store:** $28.950,70 (76 unidades em 1 pedido)
+
+---
+
+### 📅 3. Análise Temporal & Sazonalidade
+- **Evolução Histórica:** Análise contínua entre **Novembro de 2023 e Outubro de 2024**, mostrando forte recuperação das vendas ao longo de 2024 após retração no primeiro trimestre (Fev–Abr).
+- **Picos Sazonais de Demanda:**
+  - **Outubro de 2024 ($169,1K):** Recorde absoluto de vendas no histórico do projeto.
+  - **Maio de 2024 ($131,1K):** Segundo maior volume de vendas.
+- **Insight Estratégico:** Os picos concentrados nos meses de **Maio** e **Outubro** indicam momentos chave de reposição de estoque do mercado varejista antes de temporadas de alta procura.
+
+
+---
+
 
 ### 📁 Estrutura do Repositório
 
