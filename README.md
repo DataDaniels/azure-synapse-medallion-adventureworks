@@ -18,8 +18,7 @@ A base processada pertence ao ecossistema **AdventureWorks** (fabricante e distr
   - Qual é a Receita Total ($), Ticket Médio e Volume de Vendas por período?
   - Quais são os produtos e categorias mais rentáveis e de maior giro?
 - **Inteligência de Clientes:**
-  - Quem são os clientes de alto valor (*High-Value Customers*) e sua distribuição geográfica?
-  - Como se comporta a taxa de recompra e o volume de pedidos por região?
+  - Quem são os clientes de alto valor (*High-Value Customers*)?
 - **Análise Temporal & Sazonalidade:**
   - Qual é a evolução histórica das vendas ao longo dos meses e anos (suportada pela `dimDate`)?
   - Existem picos sazonais de demanda para categorias específicas de produtos?
