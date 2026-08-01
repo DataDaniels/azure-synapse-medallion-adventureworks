@@ -123,8 +123,9 @@ O painel foi desenvolvido com um layout corporativo escuro (*Dark Tech*), organi
 
 Confira a navegação em tempo real e a aplicação dos filtros dinâmicos no relatório:
 
-<video src="dashboard/demo_adventureworks_dashboard.mp4" controls width="100%"></video>
+[![Assistir ao Vídeo do Dashboard](dashboard/dashboard_preview.png)](dashboard/demo_adventureworks_dashboard.mp4)
 
+> 💡 *Clique na imagem acima para abrir e assistir à demonstração interativa em vídeo.*
 ---
 
 ### 🎯 Destaques e KPIs do Painel
