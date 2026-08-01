@@ -50,7 +50,7 @@ O fluxo de dados foi construído seguindo o padrão de pipeline end-to-end na nu
 
 ## 🗄️ Estrutura do Data Lake & Arquitetura Medalhão
 
-[![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_containers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_containers.png)
+[![Data Lake Containers](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/layers.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/layers.png)
 
 O Storage Account (ADLS Gen2) foi organizado em três containers principais, seguindo o fluxo Raw → Enriched → Curated:
 
@@ -58,7 +58,7 @@ O Storage Account (ADLS Gen2) foi organizado em três containers principais, seg
 - **Formato:** CSV
 - Contém a ingestão bruta das 10 tabelas do schema `SalesLT` (`SalesLT.Customer.csv`, `SalesLT.Product.csv`, `SalesLT.SalesOrderHeader.csv`, etc.).
 
-[![Camada Raw](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_raw_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_raw_layer.png)
+[![Camada Raw](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/raw_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/raw_layer.png)
 
 ### 2. Camada Enriched / Silver (`enriched/`)
 - **Formato:** Delta Lake
@@ -67,7 +67,7 @@ O Storage Account (ADLS Gen2) foi organizado em três containers principais, seg
   - Randomização de datas na coluna `OrderDate` para simular massa histórica real.
   - Salvamento como tabelas **Delta Lake**: `salesCustomer`, `salesCustomerAddress`, `salesOrderHeader`, `salesOrderDetail`, `salesProduct`, `salesProductCategory`.
 
-[![Camada Enriched](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/datalake_enriched_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/datalake_enriched_layer.png)
+[![Camada Enriched](https://github.com/DataDaniels/azure-synapse-medallion-adventureworks/raw/main/architecture/enriched_layer.png)](/DataDaniels/azure-synapse-medallion-adventureworks/blob/main/architecture/enriched_layer.png)
 
 ### 3. Camada Curated / Gold (`curated/`)
 - **Formato:** Delta Lake (Modelo Dimensional Star Schema)
