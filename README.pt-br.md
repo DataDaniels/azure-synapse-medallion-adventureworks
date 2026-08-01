@@ -70,6 +70,7 @@ https://github.com/user-attachments/assets/d2af6cb1-4e54-4c98-a634-15281c31b1e8
 ```
 azure-synapse-medallion-adventureworks/
 │
+├── LICENSE                               # Licença MIT
 ├── README.md                             # Visão geral do projeto (inglês)
 ├── README.pt-br.md                       # Visão geral do projeto (este arquivo)
 │
